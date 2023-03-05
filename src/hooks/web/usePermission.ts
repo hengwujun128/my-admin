@@ -62,16 +62,17 @@ export function usePermission() {
     if (!value) {
       return def
     }
-
+    // 路由映射: 'ROUTE_MAPPING'
     const permMode = projectSetting.permissionMode
-
+    // 如果是路由映射,或者是角色权限
     if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum)
       }
+      // 如果权限的值是个数组,则使用lodash 中的intersection 取交集
       return (intersection(value, userStore.getRoleList) as RoleEnum[]).length > 0
     }
-
+    // 后端权限模式
     if (PermissionModeEnum.BACK === permMode) {
       const allCodeList = permissionStore.getPermCodeList as string[]
       if (!isArray(value)) {

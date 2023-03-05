@@ -20,11 +20,15 @@ function isAuth(el: Element, binding: any) {
 const mounted = (el: Element, binding: DirectiveBinding<any>) => {
   isAuth(el, binding)
 }
-
+/**
+ * 定义个一个指令对象
+ */
 const authDirective: Directive = {
   mounted,
 }
-
+/**
+ * 通过插件形式全局注册权限指令
+ */
 export function setupPermissionDirective(app: App) {
   app.directive('auth', authDirective)
 }

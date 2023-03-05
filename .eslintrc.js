@@ -50,7 +50,7 @@ module.exports = {
     ],
     'space-before-function-paren': 'off',
 
-    'vue/attributes-order': 'off',
+    // 'vue/attributes-order': 'off',
     'vue/one-component-per-file': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': 'off',
@@ -73,4 +73,4 @@ module.exports = {
     ],
     'vue/multi-word-component-names': 'off',
   },
-};
+}

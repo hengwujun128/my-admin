@@ -2,16 +2,29 @@ import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
 import '/@/design/index.less'
 import 'virtual:windi-utilities.css'
-// Register icon sprite
+/* ------------------------- // Register icon sprite ------------------------ */
 import 'virtual:svg-icons-register'
+
 import App from './App.vue'
 import { createApp } from 'vue'
+/* -------------------------------------------------------------------------- */
+/*                                  导出整个应用的配置                           */
+/* -------------------------------------------------------------------------- */
 import { initAppConfigStore } from '/@/logics/initAppConfig'
+/* -------------------------------------------------------------------------- */
+/*                                   router                                   */
+/* -------------------------------------------------------------------------- */
 import { router, setupRouter } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard'
+/* -------------------------------------------------------------------------- */
+/*                                    store                                   */
+/* -------------------------------------------------------------------------- */
 import { setupStore } from '/@/store'
+
 import { setupGlobDirectives } from '/@/directives'
+
 import { setupI18n } from '/@/locales/setupI18n'
+
 import { registerGlobComp } from '/@/components/registerGlobComp'
 
 import { isDevMode } from './utils/env'
