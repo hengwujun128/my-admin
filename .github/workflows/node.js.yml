@@ -16,26 +16,30 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      # step1: install dependencies
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    # - run: npm ci
+    - run: pnpm install
     - run: npm run build --if-present
     - run: npm test
+
+    # step2: deployment
     - name: deploy to server
       uses: AEnterprise/rsync-deploy@v1.0.2
       env:
           DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-e -c -r --delete"
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          FOLDER: "./"
+          FOLDER: "./dist/"
           SERVER_IP: ${{ secrets.SERVER_IP }}
           USERNAME: ${{ secrets.USERNAME }}
           SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}
