@@ -33,7 +33,7 @@ jobs:
           cache: 'pnpm'
       # - run: npm ci
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: npm run build
         run: npm run build --if-present
       # - run: npm test
