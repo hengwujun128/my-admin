@@ -7,7 +7,7 @@ import appLocalePicker from './src/AppLocalePicker.vue'
 import appDarkModeToggle from './src/AppDarkModeToggle.vue'
 
 export { useAppProviderContext } from './src/useAppContext'
-
+// install component as global comp
 export const AppLogo = withInstall(appLogo)
 export const AppProvider = withInstall(appProvider)
 export const AppSearch = withInstall(appSearch)
