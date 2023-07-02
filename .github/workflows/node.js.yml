@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,25 +20,25 @@ jobs:
 
     steps:
       # step1: install dependencies
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # - run: npm ci
-    - run: pnpm install
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      # - run: pnpm install
+      - run: npm run build --if-present
+      - run: npm test
 
-    # step2: deployment
-    - name: deploy to server
-      uses: AEnterprise/rsync-deploy@v1.0.2
-      env:
+      # step2: deployment
+      - name: deploy to server
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
           DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-e -c -r --delete"
+          ARGS: '-e -c -r --delete'
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          FOLDER: "./dist/"
+          FOLDER: './dist/'
           SERVER_IP: ${{ secrets.SERVER_IP }}
           USERNAME: ${{ secrets.USERNAME }}
           SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}
