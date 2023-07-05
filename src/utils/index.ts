@@ -80,6 +80,7 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
   }
 }
 
+// register component with common function
 export const withInstall = <T>(component: T, alias?: string) => {
   const comp = component as any
   comp.install = (app: App) => {

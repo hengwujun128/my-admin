@@ -1,13 +1,14 @@
 <template>
-  <Footer :class="prefixCls" v-if="getShowLayoutFooter" ref="footerRef">
+  <Footer v-if="getShowLayoutFooter" ref="footerRef" :class="prefixCls">
     <div :class="`${prefixCls}__links`">
       <a @click="openWindow(SITE_URL)">{{ t('layout.footer.onlinePreview') }}</a>
 
-      <GithubFilled @click="openWindow(GITHUB_URL)" :class="`${prefixCls}__github`" />
+      <GithubFilled :class="`${prefixCls}__github`" @click="openWindow(GITHUB_URL)" />
 
       <a @click="openWindow(DOC_URL)">{{ t('layout.footer.onlineDocument') }}</a>
     </div>
-    <div>Copyright &copy;2020 Vben Admin</div>
+    <!-- <div>Copyright &copy;2023 {{ import.meta.env.VITE_GLOB_APP_TITLE }}</div> -->
+    <div>Copyright &copy;2023 My Admin</div>
   </Footer>
 </template>
 
