@@ -24,6 +24,7 @@ export const useLocaleStore = defineStore({
     getShowPicker(): boolean {
       return !!this.localInfo?.showPicker
     },
+    // 获取当前的语言
     getLocale(): LocaleType {
       return this.localInfo?.locale ?? 'zh_CN'
     },
@@ -37,6 +38,7 @@ export const useLocaleStore = defineStore({
       this.localInfo = { ...this.localInfo, ...info }
       ls.set(LOCALE_KEY, this.localInfo)
     },
+    // TIPS: 这里有点过度封装了,initLocale 不应该放在此处,
     /**
      * Initialize multilingual information and load the existing configuration from the local cache
      */

@@ -1,3 +1,4 @@
+// NOTE: import type
 import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 
@@ -24,8 +25,11 @@ export const router = createRouter({
   routes: basicRoutes as unknown as RouteRecordRaw[],
   // 是否应该禁止尾部斜杠。默认为假
   strict: true,
+  // TODO:当在页面之间导航时控制滚动的功能。可以返回一个 Promise 来延迟滚动
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })
+
+console.table(basicRoutes)
 
 // reset router
 export function resetRouter() {
@@ -38,7 +42,7 @@ export function resetRouter() {
 }
 
 // config router
-// 配置路由器
+// 通过函数配置路由器
 export function setupRouter(app: App<Element>) {
   app.use(router)
 }

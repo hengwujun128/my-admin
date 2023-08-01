@@ -7,5 +7,5 @@ const store = createPinia()
 export function setupStore(app: App<Element>) {
   app.use(store)
 }
-// 直接导出一个实例
+// TIPS:直接导出一个实例,提供子模块使用
 export { store }

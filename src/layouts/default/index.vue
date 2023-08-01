@@ -1,7 +1,12 @@
 <template>
+  <!--  -->
   <Layout :class="prefixCls">
+    <!-- LayoutFeatures -->
     <LayoutFeatures />
-    <LayoutHeader fixed v-if="getShowFullHeaderRef" />
+    <!--  LayoutHeader    -->
+    <LayoutHeader v-if="getShowFullHeaderRef" fixed />
+    <!-- main: 页面主要布局,所见即所得;左边是 sidebar, 右边是 layout,包括 header,content,footer  -->
+    <!-- layoutClass: 主要设置flex-direction:row 两列布局 -->
     <Layout :class="[layoutClass]">
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
       <Layout :class="`${prefixCls}-main`">
@@ -44,10 +49,13 @@
       const { prefixCls } = useDesign('default-layout')
       const { getIsMobile } = useAppInject()
       const { getShowFullHeaderRef } = useHeaderSetting()
+      // sidebar 分为 sidebar,mixinSidebar;
       const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting()
 
+      //
       const layoutClass = computed(() => {
         let cls: string[] = ['ant-layout']
+        // 只要显示菜单,或者 是mixinSidebar,都添加 sidebar
         if (unref(getIsMixSidebar) || unref(getShowMenu)) {
           cls.push('ant-layout-has-sider')
         }

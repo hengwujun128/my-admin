@@ -20,7 +20,7 @@ export interface MenuSetting {
   canDrag: boolean
   show: boolean
   hidden: boolean
-  split: boolean
+  split: boolean //?
   menuWidth: number
   mode: MenuModeEnum
   type: MenuTypeEnum

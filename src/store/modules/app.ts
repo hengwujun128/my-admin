@@ -34,6 +34,7 @@ export const useAppStore = defineStore({
       return this.pageLoading
     },
     getDarkMode(): 'light' | 'dark' | string {
+      // 初始化的时候,this.darkMode为undefined, 值来自于localStorage
       return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode
     },
 

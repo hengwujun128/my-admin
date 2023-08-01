@@ -13,6 +13,7 @@ import projectSetting from '/@/settings/projectSetting'
 
 import { PermissionModeEnum } from '/@/enums/appEnum'
 
+// TODO:
 import { asyncRoutes } from '/@/router/routes'
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 
@@ -40,6 +41,8 @@ interface PermissionState {
   // 菜单列表
   frontMenuList: Menu[]
 }
+
+// pinia 下的模块 store 都是hooks 实现
 
 export const usePermissionStore = defineStore({
   id: 'app-permission',
@@ -108,14 +111,16 @@ export const usePermissionStore = defineStore({
       this.setPermCodeList(codeList)
     },
 
-    // 构建路由
+    // 构建路由- 根据权限构造路由
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n()
+      // TODO: 为啥要这区分两种用法 ,我理解都应该使用Without
       const userStore = useUserStore()
       const appStore = useAppStoreWithOut()
 
       let routes: AppRouteRecordRaw[] = []
       const roleList = toRaw(userStore.getRoleList) || []
+      // NOTE: 解构赋值, 即使属性不存在或属性值为 undefined 时，将使用默认值
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig
 
       // 路由过滤器 在 函数filter 作为回调传入遍历使用
@@ -167,7 +172,6 @@ export const usePermissionStore = defineStore({
         }
         return
       }
-
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:

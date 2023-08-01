@@ -37,11 +37,11 @@ async function bootstrap() {
   const app = createApp(App)
 
   // Configure store
-  // 配置 store
+  // 配置 store ,获取 pinia 实例
   setupStore(app)
 
   // Initialize internal system configuration
-  // 初始化内部系统配置
+  // 初始化内部系统配置: 主题设置,国际化设置,
   initAppConfigStore()
 
   // Register global components

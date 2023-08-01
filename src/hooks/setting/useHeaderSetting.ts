@@ -12,7 +12,7 @@ import { MenuModeEnum } from '/@/enums/menuEnum'
 export function useHeaderSetting() {
   const { getFullContent } = useFullContent()
   const appStore = useAppStore()
-
+  // NOTE: unref() 函数使用
   const getShowFullHeaderRef = computed(() => {
     return (
       !unref(getFullContent) &&
@@ -27,21 +27,11 @@ export function useHeaderSetting() {
 
   const getShowInsetHeaderRef = computed(() => {
     const need = !unref(getFullContent) && unref(getShowHeader)
-    return (
-      (need && !unref(getShowMixHeaderRef)) ||
-      (need && unref(getIsTopMenu)) ||
-      (need && unref(getIsMixSidebar))
-    )
+    return (need && !unref(getShowMixHeaderRef)) || (need && unref(getIsTopMenu)) || (need && unref(getIsMixSidebar))
   })
 
-  const {
-    getMenuMode,
-    getSplit,
-    getShowHeaderTrigger,
-    getIsSidebarType,
-    getIsMixSidebar,
-    getIsTopMenu,
-  } = useMenuSetting()
+  const { getMenuMode, getSplit, getShowHeaderTrigger, getIsSidebarType, getIsMixSidebar, getIsTopMenu } =
+    useMenuSetting()
   const { getShowBreadCrumb, getShowLogo } = useRootSetting()
 
   const getShowMixHeaderRef = computed(() => !unref(getIsSidebarType) && unref(getShowHeader))
@@ -63,9 +53,7 @@ export function useHeaderSetting() {
   const getShowNotice = computed(() => appStore.getHeaderSetting.showNotice)
 
   const getShowBread = computed(() => {
-    return (
-      unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && unref(getShowBreadCrumb) && !unref(getSplit)
-    )
+    return unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && unref(getShowBreadCrumb) && !unref(getSplit)
   })
 
   const getShowHeaderLogo = computed(() => {

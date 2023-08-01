@@ -10,9 +10,7 @@
         :style="getLogoWidth"
       />
       <LayoutTrigger
-        v-if="
-          (getShowContent && getShowHeaderTrigger && !getSplit && !getIsMixSidebar) || getIsMobile
-        "
+        v-if="(getShowContent && getShowHeaderTrigger && !getSplit && !getIsMixSidebar) || getIsMobile"
         :theme="getHeaderTheme"
         :sider="false"
       />
@@ -21,19 +19,14 @@
     <!-- left end -->
 
     <!-- menu start -->
-    <div :class="`${prefixCls}-menu`" v-if="getShowTopMenu && !getIsMobile">
-      <LayoutMenu
-        :isHorizontal="true"
-        :theme="getHeaderTheme"
-        :splitType="getSplitType"
-        :menuMode="getMenuMode"
-      />
+    <div v-if="getShowTopMenu && !getIsMobile" :class="`${prefixCls}-menu`">
+      <LayoutMenu :isHorizontal="true" :theme="getHeaderTheme" :splitType="getSplitType" :menuMode="getMenuMode" />
     </div>
     <!-- menu-end -->
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
+      <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
 
       <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
 
@@ -101,14 +94,8 @@
     },
     setup(props) {
       const { prefixCls } = useDesign('layout-header')
-      const {
-        getShowTopMenu,
-        getShowHeaderTrigger,
-        getSplit,
-        getIsMixMode,
-        getMenuWidth,
-        getIsMixSidebar,
-      } = useMenuSetting()
+      const { getShowTopMenu, getShowHeaderTrigger, getSplit, getIsMixMode, getMenuWidth, getIsMixSidebar } =
+        useMenuSetting()
       const { getUseErrorHandle, getShowSettingButton, getSettingButtonPosition } = useRootSetting()
 
       const {

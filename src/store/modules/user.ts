@@ -110,6 +110,7 @@ export const useUserStore = defineStore({
         this.setSessionTimeout(false)
       } else {
         const permissionStore = usePermissionStore()
+        // 如果不是动态添加路由的方式
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction()
           routes.forEach((route) => {
