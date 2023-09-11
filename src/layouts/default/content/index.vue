@@ -1,5 +1,6 @@
 <template>
-  <div :class="[prefixCls, getLayoutContentMode]" v-loading="getOpenPageLoading && getPageLoading">
+  <!-- why use v-loading? -->
+  <div v-loading="getOpenPageLoading && getPageLoading" :class="[prefixCls, getLayoutContentMode]">
     <PageLayout />
   </div>
 </template>

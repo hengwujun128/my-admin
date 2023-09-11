@@ -13,6 +13,7 @@ function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
 }
 
+// 每次构建生成app构建信息
 const { dependencies, devDependencies, name, version } = pkg
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
@@ -32,8 +33,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build'
 
   return {
+    //
     base: VITE_PUBLIC_PATH,
     root,
+    // 定义别名
     resolve: {
       alias: [
         {
@@ -60,6 +63,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
     },
+    //
     esbuild: {
       pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
     },
@@ -82,6 +86,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
     },
+    // 定义环境变量,可以在项目代码中使用
     define: {
       // setting vue-i18-next
       // Suppress warning
@@ -100,7 +105,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
     // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
     plugins: createVitePlugins(viteEnv, isBuild),
-
+    //
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [

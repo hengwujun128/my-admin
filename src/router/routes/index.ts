@@ -16,7 +16,6 @@ Object.keys(modules).forEach((key) => {
   const modList = Array.isArray(mod) ? [...mod] : [mod]
   routeModuleList.push(...modList)
 })
-debugger
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList]
 
 // 根路由

@@ -15,15 +15,17 @@
   // use defineComponent to define none template component
   export default defineComponent({
     name: 'AppProvider',
-    inheritAttrs: false,
+    // 3.3 版本之后: 使用defineOptions({ inheritAttrs: false })
+    inheritAttrs: false, // 不继承attrs, 不透传;  默认情况下,父组件传递的 attrs会被透传
     props,
     setup(props, { slots }) {
       const isMobile = ref(false)
       const isSetState = ref(false)
 
+      //
       const appStore = useAppStore()
 
-      // Monitor screen breakpoint information changes
+      // 1. Monitor screen breakpoint information changes
       createBreakpointListen(({ screenMap, sizeEnum, width }) => {
         const lgWidth = screenMap.get(sizeEnum.LG)
         if (lgWidth) {
@@ -34,7 +36,7 @@
 
       const { prefixCls } = toRefs(props)
 
-      // Inject variables into the global
+      // 2. Inject variables into the globally
       createAppProviderContext({ prefixCls, isMobile })
 
       /**
@@ -71,7 +73,7 @@
           }
         }
       }
-
+      // 3. 在 setup 中 return 一个 function: 其实就是一个渲染函数
       return () => slots.default?.()
     },
   })

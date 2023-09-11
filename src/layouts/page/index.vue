@@ -14,9 +14,11 @@
         mode="out-in"
         appear
       >
+        <!-- NOTE: 精华,按需缓存页面 -->
         <keep-alive v-if="openCache" :include="getCaches">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
+        <!-- NOTE: 否知就不缓存 -->
         <div v-else :key="route.name">
           <component :is="Component" :key="route.fullPath" />
         </div>

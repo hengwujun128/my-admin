@@ -26,6 +26,7 @@ export function useBreakpoint() {
 
 // Just call it once
 export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void) {
+  // 定义 6 种尺寸的枚举:sizeEnum 既可以作为 type,又可以做值
   const screenRef = ref<sizeEnum>(sizeEnum.XL)
   const realWidthRef = ref(window.innerWidth)
 
@@ -52,22 +53,25 @@ export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void)
     realWidthRef.value = width
   }
 
+  // 初始化全局监听 window.resize: 把浏览器的监听器封装成了 hooks
   useEventListener({
-    el: window,
-    name: 'resize',
-
+    el: window, // 事件绑定的元素
+    name: 'resize', // 事件名称
+    // 世界处理程序的回调
     listener: () => {
-      getWindowWidth()
-      resizeFn()
+      getWindowWidth() // 获取屏幕宽度
+      resizeFn() //
     },
     // wait: 100,
   })
 
+  // 初始化确定屏幕的尺寸和window的宽度
   getWindowWidth()
   globalScreenRef = computed(() => unref(screenRef))
   globalWidthRef = computed((): number => screenMap.get(unref(screenRef)!)!)
   globalRealWidthRef = computed((): number => unref(realWidthRef))
 
+  // 断点监听时候: 用户外部自定义回调
   function resizeFn() {
     fn?.({
       screen: globalScreenRef,
@@ -79,7 +83,9 @@ export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void)
     })
   }
 
+  // 初始化就要调用一次 resizeFn回调, 把screen,width 等宽度暴露出去
   resizeFn()
+
   return {
     screenRef: globalScreenRef,
     screenEnum,

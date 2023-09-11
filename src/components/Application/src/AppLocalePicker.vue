@@ -8,8 +8,8 @@
     :trigger="['click']"
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
-    @menu-event="handleMenuEvent"
     overlayClassName="app-locale-picker-overlay"
+    @menu-event="handleMenuEvent"
   >
     <span class="cursor-pointer flex items-center">
       <Icon icon="ion:language" />
