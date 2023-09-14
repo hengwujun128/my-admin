@@ -1,11 +1,7 @@
-<!--
- * @Author: Vben
- * @Description: logo component
--->
 <template>
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
-    <img src="../../../assets/images/logo.png" />
-    <div class="ml-2 truncate md:opacity-100" :class="getTitleClass" v-show="showTitle">
+    <img src="../../../assets/images/AwesomeVue.svg" />
+    <div v-show="showTitle" class="ml-2 truncate md:opacity-100" :class="getTitleClass">
       {{ title }}
     </div>
   </div>

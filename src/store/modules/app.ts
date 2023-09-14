@@ -73,6 +73,7 @@ export const useAppStore = defineStore({
       this.beforeMiniInfo = state
     },
 
+    // state 为一个对象的时候,采用深度合并
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config)
       Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig)

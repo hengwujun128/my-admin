@@ -31,6 +31,7 @@
         if (lgWidth) {
           isMobile.value = width.value - 1 < lgWidth
         }
+        // 设置全局状态
         handleRestoreState()
       })
 

@@ -34,10 +34,7 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   })
 }
 
-function dynamicImport(
-  dynamicViewsModules: Record<string, () => Promise<Recordable>>,
-  component: string,
-) {
+function dynamicImport(dynamicViewsModules: Record<string, () => Promise<Recordable>>, component: string) {
   const keys = Object.keys(dynamicViewsModules)
   const matchKeys = keys.filter((key) => {
     const k = key.replace('../../views', '')
@@ -129,11 +126,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
 
 // Add all sub-routes to the secondary route
 // 将所有子路由添加到二级路由
-function addToChildren(
-  routes: RouteRecordNormalized[],
-  children: AppRouteRecordRaw[],
-  routeModule: AppRouteModule,
-) {
+function addToChildren(routes: RouteRecordNormalized[], children: AppRouteRecordRaw[], routeModule: AppRouteModule) {
   for (let index = 0; index < children.length; index++) {
     const child = children[index]
     const route = routes.find((item) => item.name === child.name)

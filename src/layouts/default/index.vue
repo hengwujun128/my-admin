@@ -1,6 +1,6 @@
 <template>
   <!--  -->
-  <Layout :class="prefixCls">
+  <Layout :class="prefixCls" class="layout-root">
     <!-- LayoutFeatures -->
     <LayoutFeatures />
     <!--  LayoutHeader    -->
@@ -8,8 +8,11 @@
     <!-- main: 页面主要布局,所见即所得;左边是 sidebar, 右边是 layout,包括 header,content,footer  -->
     <!-- layoutClass: 主要设置flex-direction:row 两列布局 -->
     <Layout :class="[layoutClass]">
+      <!-- left -->
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
+      <!-- right -->
       <Layout :class="`${prefixCls}-main`">
+        <!-- header setting ,tabs  -->
         <LayoutMultipleHeader />
         <LayoutContent />
         <LayoutFooter />
@@ -37,8 +40,10 @@
   export default defineComponent({
     name: 'DefaultLayout',
     components: {
+      // 异步组件
       LayoutFeatures: createAsyncComponent(() => import('/@/layouts/default/feature/index.vue')),
       LayoutFooter: createAsyncComponent(() => import('/@/layouts/default/footer/index.vue')),
+      // 同步组件
       LayoutHeader,
       LayoutContent,
       LayoutSideBar,
@@ -52,7 +57,7 @@
       // sidebar 分为 sidebar,mixinSidebar;
       const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting()
 
-      //
+      // 布局 class
       const layoutClass = computed(() => {
         let cls: string[] = ['ant-layout']
         // 只要显示菜单,或者 是mixinSidebar,都添加 sidebar

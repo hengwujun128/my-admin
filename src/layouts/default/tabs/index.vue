@@ -18,9 +18,9 @@
         </TabPane>
       </template>
 
-      <template #rightExtra v-if="getShowRedo || getShowQuick">
+      <template v-if="getShowRedo || getShowQuick" #rightExtra>
         <TabRedo v-if="getShowRedo" />
-        <TabContent isExtra :tabItem="$route" v-if="getShowQuick" />
+        <TabContent v-if="getShowQuick" isExtra :tabItem="$route" />
         <FoldButton v-if="getShowFold" />
       </template>
     </Tabs>

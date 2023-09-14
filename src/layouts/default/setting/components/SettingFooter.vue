@@ -5,7 +5,7 @@
       {{ t('layout.setting.copyBtn') }}
     </a-button>
 
-    <a-button color="warning" block @click="handleResetSetting" class="my-3">
+    <a-button color="warning" block class="my-3" @click="handleResetSetting">
       <RedoOutlined class="mr-2" />
       {{ t('common.resetText') }}
     </a-button>
@@ -48,9 +48,7 @@
       const appStore = useAppStore()
 
       function handleCopy() {
-        const { isSuccessRef } = useCopyToClipboard(
-          JSON.stringify(unref(appStore.getProjectConfig), null, 2),
-        )
+        const { isSuccessRef } = useCopyToClipboard(JSON.stringify(unref(appStore.getProjectConfig), null, 2))
         unref(isSuccessRef) &&
           createSuccessModal({
             title: t('layout.setting.operatingTitle'),

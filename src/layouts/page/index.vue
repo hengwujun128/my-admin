@@ -34,6 +34,7 @@
 
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
+  //
   import { getTransitionName } from './transition'
 
   import { useMultipleTabStore } from '/@/store/modules/multipleTab'
@@ -47,9 +48,10 @@
       const { getOpenKeepAlive } = useRootSetting()
 
       const { getBasicTransition, getEnableTransition } = useTransitionSetting()
-
+      //开启缓存标志: openKeepAlive 和 multiTabsSetting.show 都为真的时候才进行缓存
       const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab))
 
+      // 要缓存的数据:缓存的 tablist
       const getCaches = computed((): string[] => {
         if (!unref(getOpenKeepAlive)) {
           return []
