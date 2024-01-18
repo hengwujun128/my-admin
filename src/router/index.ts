@@ -29,7 +29,7 @@ export const router = createRouter({
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
-console.table(basicRoutes)
+// console.table(basicRoutes)
 
 // reset router
 export function resetRouter() {

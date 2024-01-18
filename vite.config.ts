@@ -21,8 +21,10 @@ const __APP_INFO__ = {
 }
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
-  const root = process.cwd()
+  //
+  const root = process.cwd() // 返回当前目录的绝对路径
 
+  //  使用loadEnv加载指定的 env 文件, 根据当前工作目录中的 `mode` 加载 .env 文件
   const env = loadEnv(mode, root)
 
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type

@@ -15,9 +15,9 @@ import { createParamMenuGuard } from './paramMenuGuard'
 
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
-  //
+  // 为每个 route 打标记, 添加loaded 标志
   createPageGuard(router)
-  //
+  // 每次导航,都去检查和设置 全局pageLoading 状态
   createPageLoadingGuard(router)
   //
   createHttpGuard(router)
@@ -37,21 +37,25 @@ export function setupRouterGuard(router: Router) {
 
 /**
  * Hooks for handling page state
+ * 全局守卫:为每个路由添加loaded 属性, 初始化为 false
+ * new Map() 在第一个全局路由守卫函数中引入 new Map(), 且它不是引用传递
  */
 function createPageGuard(router: Router) {
   const loadedPageMap = new Map<string, boolean>()
-  // 收集路由,把路由添加到loadedPageMap中
+  // 为每个路由添加loaded 属性
   router.beforeEach(async (to) => {
     // The page has already been loaded, it will be faster to open it again, you don’t need to do loading and other processing
     to.meta.loaded = !!loadedPageMap.get(to.path)
+    console.log('createPageGuard---beforeEach', to)
+
     // Notify routing changes
     setRouteChange(to)
-
     return true
   })
 
   router.afterEach((to) => {
     loadedPageMap.set(to.path, true)
+    console.log('createPageGuard---afterEach', { to, loadedPageMap: loadedPageMap })
   })
 }
 
@@ -60,22 +64,28 @@ function createPageLoadingGuard(router: Router) {
   const userStore = useUserStoreWithOut()
   const appStore = useAppStoreWithOut()
   const { getOpenPageLoading } = useTransitionSetting()
+
   router.beforeEach(async (to) => {
+    console.log('createPageLoadingGuard----beforeEach', to)
+    // 没有 token ,直接跳过进入下个导航守卫
     if (!userStore.getToken) {
       return true
     }
     if (to.meta.loaded) {
       return true
     }
-
+    // 根据 openPageLoading 的状态, 设置pageLoading 状态
     if (unref(getOpenPageLoading)) {
+      // 设置 pageLoading 状态
       appStore.setPageLoadingAction(true)
       return true
     }
 
     return true
   })
-  router.afterEach(async () => {
+  router.afterEach(async (to) => {
+    console.log('createPageLoadingGuard----afterEach', to)
+
     if (unref(getOpenPageLoading)) {
       // TODO Looking for a better way
       // The timer simulates the loading time to prevent flashing too fast,

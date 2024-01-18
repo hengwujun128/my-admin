@@ -31,5 +31,12 @@ export function getTransitionName({
   if (openCache) {
     name = isInCache && route.meta.loaded ? transitionName : undefined
   }
+  console.log('transition:', name)
+  // 打开 openCache 开关;当前route.name 存在 cacheTabs中 且 当前route.meta.loaded 为真,就使用'fade-slide'
+  // 否则, 使用当前路由自带的route.meta.transitionName
+  // 最后: 使用默认值def: getBasicTransition
+  // 优先级: cacheTabs缓存 + route.meta.loaded >  route.meta.transitionName >  getBasicTransition(store)
+  // 一旦走缓存: 即使设置store的basicTransition:"fade-scale" 也不起作用
+
   return name || (route.meta.transitionName as string) || def
 }

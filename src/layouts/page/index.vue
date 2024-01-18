@@ -1,6 +1,15 @@
 <template>
   <RouterView>
     <template #default="{ Component, route }">
+      {{
+        getTransitionName({
+          route,
+          openCache,
+          enableTransition: getEnableTransition,
+          cacheTabs: getCaches,
+          def: getBasicTransition,
+        })
+      }}
       <transition
         :name="
           getTransitionName({
@@ -46,7 +55,7 @@
       const tabStore = useMultipleTabStore()
 
       const { getOpenKeepAlive } = useRootSetting()
-
+      // getEnableTransition 返回:'fade-slide'
       const { getBasicTransition, getEnableTransition } = useTransitionSetting()
       //开启缓存标志: openKeepAlive 和 multiTabsSetting.show 都为真的时候才进行缓存
       const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab))
@@ -58,7 +67,6 @@
         }
         return tabStore.getCachedTabList
       })
-
       return {
         getTransitionName,
         openCache,
